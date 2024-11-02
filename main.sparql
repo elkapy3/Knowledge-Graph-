@@ -1,0 +1,16 @@
+# SPARQL Query to Retrieve Nodes and Their Relationships from the Knowledge Graph
+# This query selects nodes (subjects) and their relationships (predicates) to other nodes (objects).
+
+PREFIX ex: <http://example.org/schema#>  # Define a namespace for the example schema
+
+SELECT ?subject ?predicate ?object
+WHERE {
+  ?subject ?predicate ?object .
+  # Optional: Filter to include only specific types of entities
+  # Uncomment the next line to filter for a specific type, e.g., Person
+  # ?subject rdf:type ex:Person .
+
+  # Example filter to exclude blank nodes (useful for data quality management)
+  FILTER(isIRI(?subject) && isIRI(?object))
+}
+LIMIT 100  # Limit the number of results for quick inspection
